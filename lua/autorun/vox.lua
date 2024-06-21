@@ -268,7 +268,7 @@ else -- CLIENT
 			end
 		end
 
-		SearchBar.OnEnter = function(self)
+		SearchBar.OnChange = function(self)
 			Filtered = Search(self:GetValue())
 			RefreshList()
 		end
