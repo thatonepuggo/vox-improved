@@ -1,8 +1,9 @@
 {
-  "title": "VOX ANNOUNCER",
-  "type": "gamemode",
+  "title": "VOX IMPROVED",
+  "type": "tool",
   "tags": [
     "movie",
+    "roleplay",
     "scenic"
   ],
   "ignore": []
