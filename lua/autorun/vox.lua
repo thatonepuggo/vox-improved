@@ -60,9 +60,11 @@ end
 local function Search(val)
 	if (string.Trim( val ) == '') then return voxfiles end
 	local filtered = {}
+	
 	for k, v in ipairs( voxfiles ) do
 		if (v:find( val )) then table.insert( filtered, v ) end
 	end
+
 	return filtered
 end
 
@@ -96,7 +98,7 @@ if SERVER then
 
 	local function VoxSvCmd(ply, cmd, args, isButton)
 		-- isButton: probably bad fix but if you dont like this then don't set the value to TRUE Idiot.COM
-		if (isButton or !VOX_NEXTBROADCAST or VOX_NEXTBROADCAST < CurTime()) then
+		if (isButton || !VOX_NEXTBROADCAST || VOX_NEXTBROADCAST < CurTime()) then
 			local voxline = table.concat( args, Delimiter )
 			if CanBroadCast( ply ) then
 				net.Start( NETSTRS.Broadcast )
@@ -178,7 +180,7 @@ if SERVER then
 
 	net.Receive( NETSTRS.ListButton, function(length, ply)
 		local str = net.ReadString()
-		if (VOX_BUTTONS_ARE_SV:GetBool() and CanBroadCast( ply )) then
+		if (VOX_BUTTONS_ARE_SV:GetBool() && CanBroadCast( ply )) then
 			VoxSvCmd( ply, 'vox', str:Split( Delimiter ) )
 		end
 	end)
@@ -196,7 +198,7 @@ else -- CLIENT
 	function voxBroadcast(str, originalSender, entity, sndData)
 		local time = 0
 		local ply = LocalPlayer()
-		local emitEntity = entity or ply
+		local emitEntity = entity || ply
 		local tbl = string.Explode( Delimiter, string )
 		for k, v in ipairs( tbl ) do
 			v = string.lower( v )
@@ -230,7 +232,7 @@ else -- CLIENT
 					if emitEntity == LocalPlayer() then
 						surface.PlaySound( sndFile )
 					else
-						local sndDat = sndData or { pitch = VOX_PITCH, level = VOX_LEVEL, volume = VOX_VOL }
+						local sndDat = sndData || { pitch = VOX_PITCH, level = VOX_LEVEL, volume = VOX_VOL }
 						sound.Play( sndFile, emitEntity:GetPos(), sndDat.level, sndDat.pitch, sndDat.volume )
 					end
 				end)
