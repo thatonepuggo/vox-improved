@@ -60,7 +60,7 @@ end
 local function Search(val)
 	if (string.Trim( val ) == '') then return voxfiles end
 	local filtered = {}
-	
+
 	for k, v in ipairs( voxfiles ) do
 		if (v:find( val )) then table.insert( filtered, v ) end
 	end
